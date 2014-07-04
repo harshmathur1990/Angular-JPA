@@ -6,7 +6,6 @@
 	<body ng-controller="StoreController as store">
 	<script type="text/javascript" src="angular.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
-	<a href>Hi</a>
 	<div ng-controller="ProductController as pcontrol">
 		<ul class="nav nav-pills">
 		<li><h2>{{store.products[pcontrol.i].name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></li>
@@ -14,19 +13,19 @@
 		</ul>
 		<button ng-click="pcontrol.setNext()"> View Next </button>
 		<button ng-click="pcontrol.setPrev()"> View Previous </button>
-		<section>
+		<section ng-controller="PanelController as panel">
 			<ul class="nav nav-pills">
-				<li> <a href ng-click="tab = 1">Description</a> </li>
-				<li> <a href ng-click="tab = 2">Specification</a> </li>
-				<li> <a href ng-click="tab = 3">Reviews</a> </li>
+				<li ng-class="active:panel.isSelected(1)"> <a href ng-click="panel.selectTab(1)">Description</a> </li>
+				<li ng-class="active:panel.isSelected(2)"> <a href ng-click="panel.selectTab(2)">Specification</a> </li>
+				<li ng-class="active:panel.isSelected(3)"> <a href ng-click="panel.selectTab(3)">Reviews</a> </li>
 			</ul>
-			<div class="panel" ng-show="tab === 1">
+			<div class="panel" ng-show="panel.isSelected(1)">
 				<p>{{store.products[pcontrol.i].description}}</p>
 			</div>
-			<div class="panel" ng-show="tab === 2">
+			<div class="panel" ng-show="panel.isSelected(2)">
 				<p>{{store.products[pcontrol.i].specification}}</p>
 			</div>
-			<div class="panel" ng-show="tab === 3">
+			<div class="panel" ng-show="panel.isSelected(3)">
 				<div ng-repeat="review in store.products[pcontrol.i].reviews">
 					<p>{{"Stars : "+review.stars}}</p>
 					<p>{{review.body}}</p>
