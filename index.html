@@ -16,10 +16,24 @@
 		<button ng-click="pcontrol.setPrev()"> View Previous </button>
 		<section>
 			<ul class="nav nav-pills">
-				<li> <a href>Description</a> </li>
-				<li> <a href>Specification</a> </li>
-				<li> <a href>Reviews</a> </li>
+				<li> <a href ng-click="tab = 1">Description</a> </li>
+				<li> <a href ng-click="tab = 2">Specification</a> </li>
+				<li> <a href ng-click="tab = 3">Reviews</a> </li>
 			</ul>
+			<div class="panel" ng-show="tab === 1">
+				<p>{{store.products[pcontrol.i].description}}</p>
+			</div>
+			<div class="panel" ng-show="tab === 2">
+				<p>{{store.products[pcontrol.i].specification}}</p>
+			</div>
+			<div class="panel" ng-show="tab === 3">
+				<div ng-repeat="review in store.products[pcontrol.i].reviews">
+					<p>{{"Stars : "+review.stars}}</p>
+					<p>{{review.body}}</p>
+					<p>{{review.author}}</p>
+					<p>{{review.createdOn | date:'MM/dd/yyyy @ h:mma'}}</p>
+				</div>
+			</div>
 		</section>
 	</div>
 	</body>

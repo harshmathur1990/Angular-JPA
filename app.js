@@ -19,16 +19,46 @@
 		{
 		 name: "Dodecahedron",
 		 price: 2.00,
-		 description: ". . .",
+		 description: "Description for Dodecahedron",
 		 canPurchase: true,
 		 soldOut: false,
+		 specification: "Specification for Dodecahedron",
+		 reviews: [
+			{
+			stars: 5,
+			body: "Dodecahedron : I love this gem!",
+			author: "Dodecahedron : joe@example.org",
+			createdOn: 1397490980837
+			}, 
+			{
+			stars: 1,
+			body: "Dodecahedron : This gem sucks.",
+			author: "Dodecahedron : tim@example.org",
+			createdOn: 1397490980837
+			}
+		]
 		},
 		{
-		 name: "Pentaginal Gem",
+		 name: "Pentagonal Gem",
 		 price: 8.67,
-		 description: ". . .",
+		 description: "Description for Pentagonal Gem",
 		 canPurchase: false,
 		 soldOut: false,
-		 }
+		 specification: "Specification for Pentagonal Gem",
+		 reviews: [
+			{
+			stars: 5,
+			body: "Pentagonal Gem : I love this gem!",
+			author: "Pentagonal Gem : joe@example.org",
+			createdOn: 1397490980837
+			}, 
+			{
+			stars: 1,
+			body: "Pentagonal Gem : This gem sucks.",
+			author: "Pentagonal Gem : tim@example.org",
+			createdOn: 1397490980837
+			}
+		]
+		}
 	];
 })();
