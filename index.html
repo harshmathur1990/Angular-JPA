@@ -15,9 +15,9 @@
 		<button ng-click="pcontrol.setPrev()"> View Previous </button>
 		<section ng-controller="PanelController as panel">
 			<ul class="nav nav-pills">
-				<li ng-class="active:panel.isSelected(1)"> <a href ng-click="panel.selectTab(1)">Description</a> </li>
-				<li ng-class="active:panel.isSelected(2)"> <a href ng-click="panel.selectTab(2)">Specification</a> </li>
-				<li ng-class="active:panel.isSelected(3)"> <a href ng-click="panel.selectTab(3)">Reviews</a> </li>
+				<li ng-class="{active:panel.isSelected(1)}"> <a href ng-click="panel.selectTab(1)">Description</a> </li>
+				<li ng-class="{active:panel.isSelected(2)}"> <a href ng-click="panel.selectTab(2)">Specification</a> </li>
+				<li ng-class="{active:panel.isSelected(3)}"> <a href ng-click="panel.selectTab(3)">Reviews</a> </li>
 			</ul>
 			<div class="panel" ng-show="panel.isSelected(1)">
 				<p>{{store.products[pcontrol.i].description}}</p>
