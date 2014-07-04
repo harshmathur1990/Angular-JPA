@@ -6,18 +6,21 @@
 	<body ng-controller="StoreController as store">
 	<script type="text/javascript" src="angular.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
-	<h1>{{"Hello, Angular!"}}</h1>
-	<p>
-	I am {{4 + 6}}
-	</p>
-	<p>
-	{{"Hello" + " you!"}}
-	</p>
-	<div ng-repeat="product in store.products">
-		<h1>{{product.name}}</h1>
-		<h2>{{product.price}}</h2>
-		<p>{{product.description}}</p>
-		<button ng-show="product.canPurchase"> Add to Cart </button>
+	<a href>Hi</a>
+	<div ng-controller="ProductController as pcontrol">
+		<ul class="nav nav-pills">
+		<li><h2>{{store.products[pcontrol.i].name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></li>
+		<li><h2>{{store.products[pcontrol.i].price | currency}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></li>
+		</ul>
+		<button ng-click="pcontrol.setNext()"> View Next </button>
+		<button ng-click="pcontrol.setPrev()"> View Previous </button>
+		<section>
+			<ul class="nav nav-pills">
+				<li> <a href>Description</a> </li>
+				<li> <a href>Specification</a> </li>
+				<li> <a href>Reviews</a> </li>
+			</ul>
+		</section>
 	</div>
 	</body>
 </html>
