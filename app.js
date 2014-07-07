@@ -21,24 +21,88 @@
 		};
 	});
 	
-	app.controller('PanelController', function() {
-		this.tab = 1;
-		this.selectTab = function(setTab) {
-			this.tab = setTab;
+	
+	
+	app.directive('productInfo', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-info.html'
 		};
-		
-		this.isSelected = function(checkTab) {
-			return this.tab === checkTab;
-		};
-		
 	});
 	
-	app.controller('ReviewController', function() {
-		this.review = {};
+	app.directive('productPanels', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-panels.html',
+			controller:function() {
+				this.tab = 1;
+				this.selectTab = function(setTab) {
+					this.tab = setTab;
+				};
+		
+				this.isSelected = function(checkTab) {
+					return this.tab === checkTab;
+				};
+			},
+			controllerAs: 'panel'
+		};
+	});
 	
-		this.addReview = function(product) {
-			product.reviews.push(this.review);
-			this.review = {};
+	app.directive('productReviews', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-review.html'
+		};
+	});
+	
+	app.directive('reviewForm', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/review-form.html',
+			controller:function() {
+				this.review = {};
+	
+				this.addReview = function(product) {
+					product.reviews.push(this.review);
+					this.review = {};
+				};
+			},
+			controllerAs: 'reviewCtrl'
+		};
+	});
+	
+	app.directive('tabsList', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/tabs-list.html'
+		};
+	});
+	
+	app.directive('productDescription', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-description.html'
+		};
+	});
+	
+	app.directive('productSpecification', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-specification.html'
+		};
+	});
+	
+	app.directive('productsReviews', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/products-reviews.html'
+		};
+	});
+	
+	app.directive('productNavigation', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'include/product-navigation.html'
 		};
 	});
 	

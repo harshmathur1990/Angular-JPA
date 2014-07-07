@@ -8,56 +8,9 @@
 	<script type="text/javascript" src="angular.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 	<div ng-controller="ProductController as pcontrol">
-		<ul class="nav nav-pills">
-		<li><h2>{{store.products[pcontrol.i].name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></li>
-		<li><h2>{{store.products[pcontrol.i].price | currency}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2></li>
-		</ul>
-		<a href ng-click="pcontrol.setNext()" ng-show="pcontrol.showNext(store.products)"> View Next </a>
-		<a href ng-click="pcontrol.setPrev()" ng-show="pcontrol.showPrev(store.products)"> View Previous </a>
-		<section ng-controller="PanelController as panel">
-			<ul class="nav nav-pills">
-				<li ng-class="{active:panel.isSelected(1)}"> <a href ng-click="panel.selectTab(1)">Description</a> </li>
-				<li ng-class="{active:panel.isSelected(2)}"> <a href ng-click="panel.selectTab(2)">Specification</a> </li>
-				<li ng-class="{active:panel.isSelected(3)}"> <a href ng-click="panel.selectTab(3)">Reviews</a> </li>
-			</ul>
-			<div class="panel" ng-show="panel.isSelected(1)">
-				<p>{{store.products[pcontrol.i].description}}</p>
-			</div>
-			<div class="panel" ng-show="panel.isSelected(2)">
-				<p>{{store.products[pcontrol.i].specification}}</p>
-			</div>
-			<div class="panel" ng-show="panel.isSelected(3)">
-				<blockquote ng-repeat="review in store.products[pcontrol.i].reviews">
-					<b>{{"Stars : "+review.stars}}</b>
-					<br />
-					{{review.body}}
-					<br />
-					<cite>by: {{review.author}}</cite>
-					<p>{{review.createdOn | date:'MM/dd/yyyy @ h:mma'}}</p>
-				</blockquote>
-				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(store.products[pcontrol.i])" novalidate>
-					<blockquote>
-						<b>Stars : {{reviewCtrl.review.stars}} </b>
-						<br />
-						{{reviewCtrl.review.body}}
-						<br />
-						<cite>by: {{reviewCtrl.review.author}}</cite>
-					</blockquote>
-					<select ng-model="reviewCtrl.review.stars" required>
-						<option value="1">1 Star</option>
-						<option value="2">2 Star</option>
-						<option value="3">3 Star</option>
-						<option value="4">4 Star</option>
-						<option value="5">5 Star</option>
-					</select>
-					<textarea ng-model="reviewCtrl.review.body" required></textarea>
-					<label>by:</label>
-					<input type="email" ng-model="reviewCtrl.review.author" required/>
-					<div> reviewForm is {{reviewForm.$valid}} </div>
-					<input type="submit" value="Submit" />
-				</form>
-			</div>
-		</section>
+		<product-info></product-info>
+		<product-navigation></product-navigation>
+		<product-panels></product-panels>
 	</div>
 	</body>
 </html>
