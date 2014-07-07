@@ -13,6 +13,12 @@
 		this.setPrev = function() {
 			this.i--;
 		};
+		this.showNext = function(products) {
+			return ((this.i + 1) < products.length);
+		};
+		this.showPrev = function(products) {
+			return (this.i > 0);
+		};
 	});
 	
 	app.controller('PanelController', function() {
