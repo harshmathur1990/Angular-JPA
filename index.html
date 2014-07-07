@@ -2,6 +2,7 @@
 <html ng-app="store">
 	<head>
 		<link rel="stylesheet" type="text/css" href="bootstrap-3.2.0-dist\css\bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css\style.css" />
 	</head>
 	<body ng-controller="StoreController as store">
 	<script type="text/javascript" src="angular.min.js"></script>
@@ -26,12 +27,35 @@
 				<p>{{store.products[pcontrol.i].specification}}</p>
 			</div>
 			<div class="panel" ng-show="panel.isSelected(3)">
-				<div ng-repeat="review in store.products[pcontrol.i].reviews">
-					<p>{{"Stars : "+review.stars}}</p>
-					<p>{{review.body}}</p>
-					<p>{{review.author}}</p>
+				<blockquote ng-repeat="review in store.products[pcontrol.i].reviews">
+					<b>{{"Stars : "+review.stars}}</b>
+					<br />
+					{{review.body}}
+					<br />
+					<cite>by: {{review.author}}</cite>
 					<p>{{review.createdOn | date:'MM/dd/yyyy @ h:mma'}}</p>
-				</div>
+				</blockquote>
+				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(store.products[pcontrol.i])" novalidate>
+					<blockquote>
+						<b>Stars : {{reviewCtrl.review.stars}} </b>
+						<br />
+						{{reviewCtrl.review.body}}
+						<br />
+						<cite>by: {{reviewCtrl.review.author}}</cite>
+					</blockquote>
+					<select ng-model="reviewCtrl.review.stars" required>
+						<option value="1">1 Star</option>
+						<option value="2">2 Star</option>
+						<option value="3">3 Star</option>
+						<option value="4">4 Star</option>
+						<option value="5">5 Star</option>
+					</select>
+					<textarea ng-model="reviewCtrl.review.body" required></textarea>
+					<label>by:</label>
+					<input type="email" ng-model="reviewCtrl.review.author" required/>
+					<div> reviewForm is {{reviewForm.$valid}} </div>
+					<input type="submit" value="Submit" />
+				</form>
 			</div>
 		</section>
 	</div>

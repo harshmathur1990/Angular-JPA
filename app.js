@@ -32,7 +32,16 @@
 		};
 		
 	});
-		
+	
+	app.controller('ReviewController', function() {
+		this.review = {};
+	
+		this.addReview = function(product) {
+			product.reviews.push(this.review);
+			this.review = {};
+		};
+	});
+	
 	var gems = [
 		{
 		 name: "Dodecahedron",
@@ -44,14 +53,14 @@
 		 reviews: [
 			{
 			stars: 5,
-			body: "Dodecahedron : I love this gem!",
-			author: "Dodecahedron : joe@example.org",
+			body: "I love this Dodecahedron gem!",
+			author: "joeDodecahedron@example.org",
 			createdOn: 1397490980837
 			}, 
 			{
 			stars: 1,
-			body: "Dodecahedron : This gem sucks.",
-			author: "Dodecahedron : tim@example.org",
+			body: "This Dodecahedron gem sucks.",
+			author: "timDodecahedron@example.org",
 			createdOn: 1397490980837
 			}
 		]
@@ -66,14 +75,14 @@
 		 reviews: [
 			{
 			stars: 5,
-			body: "Pentagonal Gem : I love this gem!",
-			author: "Pentagonal Gem : joe@example.org",
+			body: "I love this Pentagonal gem!",
+			author: "joePentagonal@example.org",
 			createdOn: 1397490980837
 			}, 
 			{
 			stars: 1,
-			body: "Pentagonal Gem : This gem sucks.",
-			author: "Pentagonal Gem : tim@example.org",
+			body: "This Pentagonal gem sucks.",
+			author: "timPentagonal@example.org",
 			createdOn: 1397490980837
 			}
 		]
