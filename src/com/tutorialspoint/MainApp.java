@@ -9,7 +9,9 @@ public class MainApp {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"Beans.xml");
 		HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
+		TestHello testobj = (TestHello) context.getBean("testhello");
 		obj.getMessage();
+		testobj.getIamint();
 		context.registerShutdownHook();
 	}
 }
