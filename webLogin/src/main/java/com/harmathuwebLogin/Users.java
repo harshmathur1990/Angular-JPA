@@ -60,4 +60,9 @@ public class Users {
 		this.passWord = passWord;
 	}
 	
+	@Override
+	public java.lang.String toString() {
+		String result = "{ \"firstName\" : \"" + this.firstName + "\" }";
+		return result;
+	}
 }

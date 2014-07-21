@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 @Configuration
-@ComponentScan
 @EnableJpaRepositories
 @PropertySource(value = { "classpath:application.properties" })
 @Import(RepositoryRestMvcConfiguration.class)
