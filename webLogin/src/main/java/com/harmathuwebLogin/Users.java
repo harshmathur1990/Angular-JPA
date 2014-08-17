@@ -1,31 +1,44 @@
 package com.harmathuwebLogin;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
 
 @Entity
-@Table (name="Users")
 public class Users {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column (name="firstname")
+	
+	public Users() {
+		super();
+	}
+
+	public Users(String firstName, String lastName, String userName,
+			String passWord) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.passWord = passWord;
+	}
+
 	private String firstName;
 	
-	@Column (name="lastname")
+	
 	private String lastName;
 	
-	@Column (name="username")
+	@Column (unique = true)
 	private String userName;
 	
-	@Column (name="password")
+	
 	private String passWord;
 
 	public String getFirstName() {
