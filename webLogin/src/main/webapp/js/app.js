@@ -1,20 +1,82 @@
 (function() {
-	var app = angular.module('webLogin', []);
+	var app = angular.module('login', [ 'ngRoute' ]);
 
-	app.controller('LoginController', [ '$http', function($http) {
-		this.userinfo = {};
-		this.status = "NOT YET";
-		
-		this.validateUser = function() {
-			$http({
-				url: 'http://localhost:8080/users/search/findbyUserNameAndPassWord?userName='+this.userinfo.userName+'&passWord='+this.userinfo.passWord,
-				method: 'POST',
-				headers: {'Content-Type': 'application/json'}
-			}).success(function(data, status, headers, config){ 
-				this.status = data;
-			}).error(function(data, status, headers, config){
-				this.status = status;
+	app.config([ '$routeProvider', function($routeProvider) {
+		$routeProvider.when('/', {
+			templateUrl : 'main.html',
+			controller : 'MainController'
+		}).when('/login', {
+			templateUrl : 'login.html',
+			controller : 'LoginController'
+		}).when('/home', {
+			templateUrl : 'home.html',
+			controller : 'HomeController'
+		}).otherwise({
+			redirectTo : '/'
+		});
+	} ]);
+
+	app.controller('IndexController', function() {
+		this.i = 1;
+	});
+
+	app.controller('LoginController', function($scope) {
+		$scope.msg = "LoginPage";
+	});
+
+	app.controller('HomeController', function($scope) {
+		$scope.msg = "HomePage";
+	});
+
+	app.controller('MainController', function($scope) {
+		$scope.msg = "MainPage";
+	});
+
+	app.factory('LoginFactory', [ '$scope', '$http', function($scope, $http) {
+		var urlBase = "http://localhost:8080/app";
+		fact = {};
+		fact.login = function(userinfo) {
+			return $http({
+				method : 'POST',
+				url : urlBase + '/login',
+				data : userinfo,
+				headers : {
+					'Content-Type' : 'application/json'
+				}
 			});
 		};
-	}]);
+		fact.validate = function(sessionId) {
+			return $http({
+				method : 'GET',
+				url : urlBase + '/validate?sessionId=' + sessionId,
+			});
+		};
+		return fact;
+	} ]);
+
+	app.value('Credentials', {
+		'sessionId' : 'junk',
+		'firstName' : 'junk',
+		'lastName' : 'junk'
+	});
+
+	app.factory('LoginService', [
+			'Credentials',
+			function(Credentials, LoginFactory) {
+				var fact = {};
+				fact.isLoggedin = function() {
+					LoginFactory.validate(Credentials.sessionId).success(
+							function(data, status, headers, config) {
+								return true;
+							}).error(function(data, status, headers, config) {
+								return false;
+					});
+				};
+			} ]);
+
+	// app.run(function($rootScope, $location, LoginFactory) {
+	// $rootScope.$on('$routeChangeStart', function (event, next, current){
+
+	// });
+	// });
 })();

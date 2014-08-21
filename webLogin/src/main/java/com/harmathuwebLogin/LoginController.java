@@ -1,8 +1,11 @@
 package com.harmathuwebLogin;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @Controller("/app")
 public class LoginController implements LoginService {
@@ -38,6 +42,31 @@ public class LoginController implements LoginService {
 					+ "\",\"lastName\" : \"" + user_res.getLastName() + "\"}";
 			return body;
 		} else {
+			throw new HttpUnauthorizedException();
+		}
+	}
+
+	@Override
+	@RequestMapping(value = "/app/validate", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.ACCEPTED)
+	@ResponseBody
+	public String validateSession(@Param ("sessionId")String sessionId) {
+		// TODO Auto-generated method stub
+		Sessions sess = sessionRepository.findBySessionId(sessionId);
+		if (sess != null) {
+			Calendar latest_date = sess.getLatestDate();
+			Calendar now = GregorianCalendar.getInstance();
+			latest_date.add(Calendar.MINUTE, 2);
+			if (latest_date.compareTo(now) >= 0) {
+				sess.setLatestDate(latest_date);
+				sessionRepository.save(sess);
+				return "";
+			}
+			else {
+				throw new SessionExpired();
+			}
+		}
+		else {
 			throw new HttpUnauthorizedException();
 		}
 	}

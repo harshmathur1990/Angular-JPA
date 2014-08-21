@@ -5,5 +5,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(exported = false)
 public interface SessionRepository extends CrudRepository<Sessions, String> {
-
+	public Sessions findBySessionId(String sessionID);
 }
