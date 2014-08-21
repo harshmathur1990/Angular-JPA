@@ -41,7 +41,8 @@
 				url : urlBase + '/login',
 				data : userinfo,
 				headers : {
-					'Content-Type' : 'application/json'
+					'Content-Type' : 'application/json',
+					'Accept' : 'application/json'
 				}
 			});
 		};
@@ -62,21 +63,36 @@
 
 	app.factory('LoginService', [
 			'Credentials',
-			function(Credentials, LoginFactory) {
+			function(Credentials, LoginFactory, $location) {
 				var fact = {};
 				fact.isLoggedin = function() {
+					var result = false;
 					LoginFactory.validate(Credentials.sessionId).success(
 							function(data, status, headers, config) {
-								return true;
+								result = true;
 							}).error(function(data, status, headers, config) {
-								return false;
+						result = false;
+					});
+					return result;
+				};
+				fact.authenticate = function(userinfo) {
+					LoginFactory.login(userinfo).success(
+							function(data, status, headers, config) {
+								Credentials = data;
+								$location.path('/home');
+							}).error(function(data, status, headers, config) {
+						$location.path('/login');
 					});
 				};
+				return fact;
 			} ]);
 
-	// app.run(function($rootScope, $location, LoginFactory) {
-	// $rootScope.$on('$routeChangeStart', function (event, next, current){
-
-	// });
-	// });
+	app.run(function($rootScope, $location, LoginService) {
+		$rootScope.$on('$routeChangeStart', function(event, next, current) {
+			console.log(LoginService.isLoggedin());
+			if (!LoginService.isLoggedin()) {
+				$location.path('/login');
+			}
+		});
+	});
 })();
