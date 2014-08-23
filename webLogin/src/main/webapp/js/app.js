@@ -32,9 +32,9 @@
 		$scope.msg = "MainPage";
 	});
 
-	app.factory('LoginFactory', [ '$scope', '$http', function($scope, $http) {
+	app.factory('LoginFactory', [ '$http', function($http) {
 		var urlBase = "http://localhost:8080/app";
-		fact = {};
+		var fact = {};
 		fact.login = function(userinfo) {
 			return $http({
 				method : 'POST',
@@ -63,7 +63,9 @@
 
 	app.factory('LoginService', [
 			'Credentials',
-			function(Credentials, LoginFactory, $location) {
+			'$location',
+			'LoginFactory',
+			function(Credentials, $location, LoginFactory) {
 				var fact = {};
 				fact.isLoggedin = function() {
 					var result = false;
