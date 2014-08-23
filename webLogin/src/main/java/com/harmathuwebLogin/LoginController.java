@@ -28,8 +28,7 @@ public class LoginController implements LoginService {
 	@Override
 	@RequestMapping(value = "/app/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	@ResponseBody
-	public String login(@RequestBody Users user) {
+	public HttpEntity<String> login(@RequestBody Users user) {
 		Users user_res = userRepository.findByUserNameAndPassWord(
 				user.getUserName(), user.getPassWord());
 		if (user_res != null) {
@@ -40,7 +39,10 @@ public class LoginController implements LoginService {
 			String body = "{\"sessionId\" : \"" + new_session.getSessionId()
 					+ "\",\"firstName\" : \"" + user_res.getFirstName()
 					+ "\",\"lastName\" : \"" + user_res.getLastName() + "\"}";
-			return body;
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> response = new HttpEntity<String>(body, headers);
+			return response;
 		} else {
 			throw new HttpUnauthorizedException();
 		}

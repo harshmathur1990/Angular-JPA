@@ -20,13 +20,18 @@
 		this.i = 1;
 	});
 
-	app.controller('LoginController', function($scope) {
-		$scope.msg = "LoginPage";
-	});
+	app.controller('LoginController', [ '$scope', 'LoginService',
+			function($scope, LoginService) {
+				$scope.msg = "LoginPage";
+				$scope.login = function(userinfo) {
+					LoginService.authenticate(userinfo);
+				};
+			} ]);
 
-	app.controller('HomeController', function($scope) {
-		$scope.msg = "HomePage";
-	});
+	app.controller('HomeController',['$scope', 'Credentials', function($scope, Credentials) {
+		$scope.msg = "Welcome" + Credentials.firstName + " " + Credentials.lastName + "!";
+		
+	}]);
 
 	app.controller('MainController', function($scope) {
 		$scope.msg = "MainPage";
