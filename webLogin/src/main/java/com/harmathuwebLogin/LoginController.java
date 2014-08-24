@@ -36,9 +36,9 @@ public class LoginController implements LoginService {
 					GregorianCalendar.getInstance(),
 					GregorianCalendar.getInstance());
 			sessionRepository.save(new_session);
-			String body = "{\"sessionId\" : \"" + new_session.getSessionId()
-					+ "\",\"firstName\" : \"" + user_res.getFirstName()
-					+ "\",\"lastName\" : \"" + user_res.getLastName() + "\"}";
+			String body = "{\"sessionId\":\"" + new_session.getSessionId()
+					+ "\",\"firstName\":\"" + user_res.getFirstName()
+					+ "\",\"lastName\":\"" + user_res.getLastName() + "\"}";
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity<String> response = new HttpEntity<String>(body, headers);

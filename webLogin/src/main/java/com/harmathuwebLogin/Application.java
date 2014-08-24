@@ -1,6 +1,6 @@
 package com.harmathuwebLogin;
 
-
+import java.util.GregorianCalendar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,14 +28,13 @@ public class Application {
 		Users harsh = new Users("Harsh", "Mathur", "harmathu", "blahblah");
 		repoUser.save(harsh);
 		/*
-		 * SessionRepository session_user =
-		 * context.getBean(SessionRepository.class); Sessions session_harsh =
-		 * new Sessions(harsh, new GregorianCalendar(2014, 8, 14, 11, 45, 43),
+		 * SessionRepository session_user = context
+		 * .getBean(SessionRepository.class); Sessions session_harsh = new
+		 * Sessions(harsh, new GregorianCalendar( 2014, 8, 14, 11, 45, 43),
 		 * GregorianCalendar.getInstance()); session_user.save(session_harsh);
-		 * String body = "{\"sessionId\" : \"" + session_harsh.getSessionId() +
-		 * "\", \"firstName\" : \"" + harsh.getFirstName() +
-		 * "\", \"lastName\" : \"" + harsh.getLastName() + "\"}";
-		 * System.out.println(body);
+		 * String body = "{\"sessionId\":\"" + session_harsh.getSessionId() +
+		 * "\",\"firstName\":\"" + harsh.getFirstName() + "\",\"lastName\":\"" +
+		 * harsh.getLastName() + "\"}"; System.out.println(body);
 		 */
 	}
 
