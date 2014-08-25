@@ -3,9 +3,11 @@ package com.harmathuwebLogin;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
+
+
+
 @Controller("/app")
 public class LoginController implements LoginService {
 	@Autowired
@@ -26,7 +31,7 @@ public class LoginController implements LoginService {
 	UsersRepository userRepository;
 
 	@Override
-	@RequestMapping(value = "/app/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/app/login", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	public HttpEntity<String> login(@RequestBody Users user) {
 		Users user_res = userRepository.findByUserNameAndPassWord(
@@ -36,12 +41,15 @@ public class LoginController implements LoginService {
 					GregorianCalendar.getInstance(),
 					GregorianCalendar.getInstance());
 			sessionRepository.save(new_session);
-			String body = "{\"sessionId\":\"" + new_session.getSessionId()
-					+ "\",\"firstName\":\"" + user_res.getFirstName()
-					+ "\",\"lastName\":\"" + user_res.getLastName() + "\"}";
+			JSONObject obj = new JSONObject();
+			obj.put("sessionId", new_session.getSessionId());
+			obj.put("firstName", user_res.getFirstName());
+			obj.put("lastName", user_res.getLastName());
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<String> response = new HttpEntity<String>(body, headers);
+			//HttpEntity<String> response = new HttpEntity<String>(body, headers);
+			//return response;
+			HttpEntity<String> response = new HttpEntity<String> (obj.toString(), headers);
 			return response;
 		} else {
 			throw new HttpUnauthorizedException();

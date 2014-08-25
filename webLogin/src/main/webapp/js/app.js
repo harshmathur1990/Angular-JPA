@@ -76,8 +76,10 @@
 					var result = false;
 					LoginFactory.validate(Credentials.sessionId).success(
 							function(data, status, headers, config) {
+								//console.log("Validate true: "+ Credentials.sessionId);
 								result = true;
 							}).error(function(data, status, headers, config) {
+								//console.log("Validate false: "+ Credentials.sessionId);
 						result = false;
 					});
 					return result;
