@@ -31,7 +31,7 @@ public class LoginController implements LoginService {
 	UsersRepository userRepository;
 
 	@Override
-	@RequestMapping(value = "/app/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/app/login", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	public HttpEntity<String> login(@RequestBody Users user) {
 		Users user_res = userRepository.findByUserNameAndPassWord(
