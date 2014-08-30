@@ -73,16 +73,17 @@
 			function(Credentials, $location, LoginFactory) {
 				var fact = {};
 				fact.isLoggedin = function() {
-					var result = false;
+					fact.result = false;
 					LoginFactory.validate(Credentials.sessionId).success(
 							function(data, status, headers, config) {
-								//console.log("Validate true: "+ Credentials.sessionId);
-								result = true;
+								console.log("Validate "+fact.result+": "+ Credentials.sessionId);
+								fact.result = true;
 							}).error(function(data, status, headers, config) {
-								//console.log("Validate false: "+ Credentials.sessionId);
-						result = false;
+								console.log("Validate "+fact.result+": "+ Credentials.sessionId);
+						fact.result = false;
 					});
-					return result;
+					console.log("Validate return : "+fact.result);
+					return fact.result;
 				};
 				fact.authenticate = function(userinfo) {
 					LoginFactory.login(userinfo).success(
